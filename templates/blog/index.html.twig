@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}demoBlog - Articles
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		{% for article in articles %}
+			{# la variables article est déclaré au moment du for, c'est une variable de reception, qui receptionne un article par tour de boucle, la variables articles correspond à l'indice 'articles' du tableau ARRAY déclarée dans lecontroller BlogController.php dans la méthode index() #}
+
+			<article class="col-sm-12 col-md-6 col-lg-4 mx-auto text-center border rounded border-dark my-3 p-3">
+
+				<h2>{{ article.title }}</h2>
+				{# synthaxe TWIG, la variable $title est privée, donc symfony essaye d'abord d'y accéder et ensuite fait appel au getteur, c'est accessible, il envoi !! #}
+				<div class="metadata">Ecrit le
+					{{ article.createdAt | date('d/m/Y') }}
+					à
+					{{ article.createdAt | date('H:i:s') }}
+					dans la catégorie Articles</div><hr>
+				{# createdAt est un objet DateTime donc il n'est pas possible de l'afficher tel quel, nous devons utiliser un filtre TWIG, qui va convertir l'objet DateTime en une chaine de caractères #}
+				<div class="content">
+					<img src="{{ article.image }}" alt="" style="width:100%;"><hr>
+
+					{{ article.content | raw }}
+
+					{# Sans le filtre, les balises <p> s'affichent, nous utilisons donc un filtre 'raw' pour l'affichage brut #}
+
+					<a href="{{ path('blog_show', {'id' : article.id }) }}" class="btn btn-danger">Lire la suite</a>
+
+				</div>
+			</article>
+		{% endfor %}
+	</div>
+{% endblock %}

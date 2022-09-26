@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<section class="row articles">
+
+		<article class="col-md-9 mx-auto text-center border border-dark my-3 p-3">
+			<h2>{{ article.title }}</h2>
+			<div class="metadata">Ecrit le {{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date('H:i:s') }} dans la catégorie {{ article.category.title }}</div><hr>
+
+			<div class="content">
+				<img src="{{ article.image }}" alt=""><hr>
+				{{ article.content | raw }}
+			</div>
+		</article>
+		<h2 class="text-center mx-auto m-3">{{ article.comments | length }} Commentaires</h2>
+		{{ form_start(commentForm) }}
+		{{ form_row(commentForm.author, {'label': 'Auteur', 'attr': {'placeholder': "Votre nom..."}}) }}
+		{{ form_row(commentForm.Content, {'label': 'Votre message', 'attr': {'placeholder': "Saisir votre message..."}}) }}
+		<button type="submit" class="btn btn-danger mb-3">Poster votre commentaire</button>
+		{{ form_end(commentForm) }}
+	</section>
+{% endblock %}

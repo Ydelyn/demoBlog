@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<h1>{{ title }}</h1>
+{# On affiche le contenu de la variable 'title' avec le moteur TWIG #}
+{% if not app.user %}
+<p>N'hésitez pas à vous <a class="text-dark fw-bold" href="{{ path('security_login') }}">connecter</a> ou à vous <a class="text-dark fw-bold" href="{{ path('security_registration') }}">inscrire</a> !!</p>
+{% else %}
+<p>Vous souhaitez vous <a class="text-dark fw-bold" href="{{ path('security_logout') }}">déconnecter</a> ?</p>
+{% endif %}
+{% endblock %}
